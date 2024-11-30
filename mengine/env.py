@@ -12,6 +12,8 @@ from .bodies.baxter import Baxter
 from .bodies.pr2 import PR2
 from .bodies.stretch import Stretch
 from .bodies.kinova_gen3 import KinovaGen3
+from .bodies.unitreeh1 import UnitreeH1
+
 
 envir = None
 directory = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'assets')
@@ -100,6 +102,12 @@ def get_keys():
     return [chr(k) if k not in specials else specials[k] for k in p.getKeyboardEvents().keys()]
 
 class Robot:
+    class UnitreeH1(UnitreeH1):
+        def __init__(self, position=[0, 0, 0], orientation=[0, 0, 0, 1], controllable_joints=None, fixed_base=True, env=None):
+            env = env if env is not None else envir
+            super().__init__(env, position, get_quaternion(orientation), controllable_joints, fixed_base)
+
+            
     class Panda(Panda):
         def __init__(self, position=[0, 0, 0], orientation=[0, 0, 0, 1], controllable_joints=None, fixed_base=True, env=None):
             env = env if env is not None else envir
